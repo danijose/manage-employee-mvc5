@@ -1,0 +1,117 @@
+﻿@model EmployeeWeb.ViewModels.EmployeeListViewModel
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+
+<button  type="submit" class="btn btn-link"> @Html.ActionLink("Add New", "New") </button>
+<table class="table">
+    @*    <tr>
+        <th>
+            @Html.ActionLink("Last Name", "Index", new { sortBy = ViewBag.NameSortParm })
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            @Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th></th>
+    </tr>
+*@
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address1</th>
+        <th>Address2</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Country</th>
+        <th>Zipcode</th>
+        <th>Email</th>
+        <th>Action</th>
+       
+    </tr>
+    @foreach (var employee in Model.Employees)
+    {
+        <tr> 
+            <td> @employee.Id </td>
+            <td> @employee.Name </td>
+            <td> @employee.Address1 </td>
+            <td> @employee.Address2 </td>
+            <td> @employee.City </td>
+            <td> @employee.State </td>
+            <td> @employee.Country </td>
+            <td> @employee.Zipcode </td>
+            <td> @employee.Email </td>
+
+            <td> @Html.ActionLink("View", "Details", new { id = @employee.Id }) |
+                 @Html.ActionLink("Edit", "Edit", new { id = @employee.Id }) |
+                 @Html.ActionLink("Delete", "Delete", new { id = @employee.Id }) </td>
+        </tr>
+    }
+</table>
+
+<br />
+<br />
+
+<h1> @ViewBag.totalCount</h1>
+<ul class="pagination">
+    @{
+        /*double _pageCount = ((double) ViewBag.totalCount / ViewBag.countPerPage);
+        if ((ViewBag.totalCount % 2 == 1 && ViewBag.countPerPage % 2 == 0) ||
+            (ViewBag.totalCount % 2 == 0 && ViewBag.countPerPage % 2 == 1))
+        {
+            _pageCount = Math.Ceiling(ViewBag.totalCount / ViewBag.countPerPage);
+        }*/
+        double _pageCount = ((double)((ViewBag.totalCount-1) / ViewBag.countPerPage));
+        int pageCount = _pageCount - (Math.Round(_pageCount)) != 0 ? (int)(_pageCount + 1) : (int)_pageCount;
+         
+        string classNameForNext = ViewBag.pageIndex == _pageCount ? "disabled" : string.Empty;
+        string classNameForPrevious = ViewBag.pageIndex == 1 ? "disabled" : string.Empty;
+    }
+    <li class="@classNameForPrevious">
+        @if (classNameForPrevious == string.Empty)
+        {
+            @Html.ActionLink("« Prev", "List", new { pageIndex = (ViewBag.pageIndex - 1), sortBy = "Name" })
+        }
+        else
+        {
+            <a href="#">« Prev</a>
+        }
+    </li>
+    
+    @for (int pages = 1; pages <= pageCount; pages++)
+
+    {
+
+        //
+
+        //adding active class to current page
+
+        string active = "";
+
+        if (pages == ViewBag.pageIndex)
+
+        {
+
+            active = "active"; 
+
+        }
+
+        <li class="@active">@Html.ActionLink(pages.ToString(), "List", new { pageIndex = pages ,sortBy = "Name" })</li>
+    }
+    <li class="@classNameForNext">
+        @if (classNameForNext == string.Empty)
+        {
+            @Html.ActionLink("Next »", "List", new { pageIndex = (ViewBag.pageIndex + 1), sortBy = "Name" })
+        }
+        else
+        {
+            <a href="#">Next »</a>
+        }
+    </li>
+</ul>

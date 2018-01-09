@@ -1,0 +1,54 @@
+﻿@model EmployeeWeb.ViewModels.EmployeeFormViewModel
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New Employee</h2>
+
+@using (Html.BeginForm("Save", "Employee"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.Name)
+        @Html.TextBoxFor(m => m.Employee.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.Address1)
+        @Html.TextBoxFor(m => m.Employee.Address1, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.Address2)
+        @Html.TextBoxFor(m => m.Employee.Address2, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.City)
+        @Html.TextBoxFor(m => m.Employee.City, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.Country)
+        @Html.TextBoxFor(m => m.Employee.Country, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.State)
+        @Html.TextBoxFor(m => m.Employee.State, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.Zipcode)
+        @Html.TextBoxFor(m => m.Employee.Zipcode, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @*<label for = "Email"> Email Id</label>*@
+        @Html.LabelFor(m => m.Employee.Email)
+        @Html.TextBoxFor(m => m.Employee.Email, new { @class = "form-control" })
+    </div>
+
+    @Html.HiddenFor(m => m.Employee.Id)
+    <button type="submit" class="btn btn-primary"> Save  </button>
+}
+
