@@ -61,16 +61,10 @@
 <h1> @ViewBag.totalCount</h1>
 <ul class="pagination">
     @{
-        /*double _pageCount = ((double) ViewBag.totalCount / ViewBag.countPerPage);
-        if ((ViewBag.totalCount % 2 == 1 && ViewBag.countPerPage % 2 == 0) ||
-            (ViewBag.totalCount % 2 == 0 && ViewBag.countPerPage % 2 == 1))
-        {
-            _pageCount = Math.Ceiling(ViewBag.totalCount / ViewBag.countPerPage);
-        }*/
-        double _pageCount = ((double)((ViewBag.totalCount-1) / ViewBag.countPerPage));
-        int pageCount = _pageCount - (Math.Round(_pageCount)) != 0 ? (int)(_pageCount + 1) : (int)_pageCount;
-         
-        string classNameForNext = ViewBag.pageIndex == _pageCount ? "disabled" : string.Empty;
+            
+        double pageCount = Math.Ceiling((double) ViewBag.totalCount / ViewBag.countPerPage);
+
+        string classNameForNext = ViewBag.pageIndex == pageCount ? "disabled" : string.Empty;
         string classNameForPrevious = ViewBag.pageIndex == 1 ? "disabled" : string.Empty;
     }
     <li class="@classNameForPrevious">
